@@ -1,0 +1,52 @@
+{
+  "name": "@apenhet/vue-plugin-use-store",
+  "version": "0.0.1",
+  "description": "Vue Plugin to use strong-typed stores.",
+  "main": "dist/index.ssr.js",
+  "browser": "dist/index.esm.js",
+  "module": "dist/index.esm.js",
+  "unpkg": "dist/index.min.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/*"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "rollup --config rollup.config.js",
+    "commit": "cz"
+  },
+  "dependencies": {
+    "vue-demi": "latest"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.13",
+    "@babel/preset-env": "^7.12.11",
+    "@babel/preset-typescript": "^7.12.7",
+    "@rollup/plugin-babel": "^5.2.3",
+    "@rollup/plugin-commonjs": "^17.1.0",
+    "@vue/composition-api": "^1.0.0-rc.1",
+    "cz": "^1.8.2",
+    "cz-conventional-changelog": "3.3.0",
+    "fs": "^0.0.1-security",
+    "rollup": "^2.36.1",
+    "rollup-plugin-generate-declarations": "^1.1.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "tslib": "^2.1.0",
+    "typescript": "^4.1.3",
+    "vue": "^2.6.12",
+    "vuex": "^3.6.2"
+  },
+  "peerDependencies": {
+    "@vue/composition-api": "^1.0.0-beta.1",
+    "vue": "^2.0.0 || >=3.0.0-rc.0",
+    "vuex": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=12"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
