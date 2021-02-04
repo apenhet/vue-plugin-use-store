@@ -8,6 +8,7 @@ yarn add @apenhet/vue-plugin-use-store
 
 ## Initialize
 
+This package works both with Vue 2 + Composition API and Vue 3 + (Vuex).
 To start using your store modules, simply register your store as follows:
 
 ```ts
@@ -15,13 +16,13 @@ import { registerStore } from '@apenhet/vue-plugin-use-store'
 import { createStore } from 'vuex'
 
 const store = createStore({
-  modules
+  modules,
 })
 
 registerStore(store)
 
-// Export your modules 
-export const modules = { }
+// Export your modules
+export const modules = {}
 
 // Default export your store
 export default store
@@ -29,7 +30,7 @@ export default store
 
 ## TypeScript
 
-The true benefits of this package appear when you use TypeScript. After registering your store as previously explained, simply add this line to your `tsconfig.json`
+The true benefits of this package appear when you use TypeScript. After registering your store as previously explained, simply add this line to your `tsconfig.json` (or you `jsconfig.json`).
 
 ```json
 {
@@ -43,6 +44,7 @@ The true benefits of this package appear when you use TypeScript. After register
 ## Usage
 
 You can now use your store modules as follows:
+
 ```typescript
 // store/some-module-name.ts
 
@@ -51,22 +53,25 @@ const state = () => ({ someStateProperty: false })
 const mutations = {
   SOMETHING(state: State, payload: number) {
     state.someStateProperty = payload > 10
-  }
+  },
 }
 
 const actions = {
-  async someAction({ commit }: ActionContext<State, RootState>, payload: number) {
-      commit('SOMETHING', payload)
+  async someAction(
+    { commit }: ActionContext<State, RootState>,
+    payload: number
+  ) {
+    commit('SOMETHING', payload)
   },
   async someActionWitoutParams({ commit }: ActionContext<State, RootState>) {
-      return 'DONE'
-  }
+    return 'DONE'
+  },
 }
 
 const getters = {
   someGetter(state: State) {
     return 'SOMETHING_ELSE'
-  }
+  },
 }
 
 export default {
@@ -74,7 +79,7 @@ export default {
   actions,
   mutations,
   state,
-  getters
+  getters,
 }
 ```
 
@@ -82,19 +87,25 @@ export default {
 // App.vue
 
 <script lang="ts">
-import { computed, defineComponent } from "vue";
-import { useModuleStore } from "@apenhet/vue-plugin-use-store";
+import { computed, defineComponent } from 'vue'
+import { useModuleStore } from '@apenhet/vue-plugin-use-store'
 
 export default defineComponent({
   setup() {
-    const { someStateProperty, someAction, someActionWithoutParams, someGetter } = useModuleStore('some-module-name')
-    
+    const {
+      someStateProperty,
+      someAction,
+      someActionWithoutParams,
+      someGetter,
+    } = useModuleStore('some-module-name')
+
     return {
       someStateProperty, // Ref<boolean>
       someAction, // (payload: number) => Promise<void>
       someActionWithoutParams, // () => Promise<string>
-      someGetter // ComputedRef<string>
+      someGetter, // ComputedRef<string>
     }
-  }
+  },
 })
 </script>
+```
