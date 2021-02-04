@@ -1,3 +1,6 @@
+import "core-js/stable";
+import "regenerator-runtime/runtime";
+
 import { ComputedRef, Ref, computed, toRefs } from 'vue-demi'
 
 import { Module } from 'vuex'

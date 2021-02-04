@@ -1,3 +1,5 @@
+import "core-js/stable";
+import "regenerator-runtime/runtime";
 import { ComputedRef, Ref } from 'vue-demi';
 declare type StorePath = typeof import('@store');
 declare type BaseStore = StorePath['default'];

@@ -1,3 +1,5 @@
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 import { toRefs, computed } from 'vue-demi';
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
