@@ -25,7 +25,8 @@ type ModuleState<ModuleName extends ModuleNames> = Modules[ModuleName]['state'] 
 type ModuleStateTree<ModuleName extends ModuleNames> = { [K in keyof ModuleState<ModuleName>]: Ref<ModuleState<ModuleName>[K]> }
 
 const options = {
-    registeredStore: null as null | BaseStore
+    registeredStore: null as null | BaseStore,
+    cachedModules: {} as any
 }
 
 export function registerStore<CurrentStore extends BaseStore>(store: CurrentStore) {
@@ -43,11 +44,11 @@ export function useModuleStore<ModuleName extends ModuleNames>(name: ModuleName)
     }
 
     if (store?.hasModule(name)) {
-        return {
+        return options.cachedModules[name] || (options.cachedModules[name] = {
             ...storeModuleState(store, name),
             ...storeModuleGetters(store, name),
             ...storeModuleActions(store, name)
-        }
+        })
     }
 
     throw new Error(`The module ${name} does not exist`)

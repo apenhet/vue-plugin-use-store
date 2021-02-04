@@ -86,7 +86,8 @@ function _objectSpread2(target) {
 }
 
 var options = {
-  registeredStore: null
+  registeredStore: null,
+  cachedModules: {}
 };
 function registerStore(store) {
   Object.defineProperty(options, 'registeredStore', {
@@ -102,7 +103,7 @@ function useModuleStore(name) {
   }
 
   if (store !== null && store !== void 0 && store.hasModule(name)) {
-    return _objectSpread2(_objectSpread2(_objectSpread2({}, storeModuleState(store, name)), storeModuleGetters(store, name)), storeModuleActions(store, name));
+    return options.cachedModules[name] || (options.cachedModules[name] = _objectSpread2(_objectSpread2(_objectSpread2({}, storeModuleState(store, name)), storeModuleGetters(store, name)), storeModuleActions(store, name)));
   }
 
   throw new Error("The module ".concat(name, " does not exist"));
