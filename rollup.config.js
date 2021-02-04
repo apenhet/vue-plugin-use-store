@@ -1,15 +1,15 @@
 import babel from '@rollup/plugin-babel';
 import commonjs from '@rollup/plugin-commonjs';
 import generateDeclarations from 'rollup-plugin-generate-declarations';
-import {readFileSync} from 'fs';
+import { readFileSync } from 'fs';
 import { terser } from 'rollup-plugin-terser';
 
 const esbrowserslist = readFileSync('./.browserslistrc')
   .toString()
   .split('\n')
   .filter((entry) => entry && entry.substring(0, 2) !== 'ie');
-
-  const pkgName = 'VuePluginUseStore'
+  
+const pkgName = 'VuePluginUseStore'
 
 const external = [
   'vue',
@@ -19,7 +19,7 @@ const globals = {
   vue: 'Vue',
 };
 
-const babelConfig =  {
+const babelConfig = {
   exclude: 'node_modules/**',
   extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue'],
   babelHelpers: 'bundled',
@@ -34,11 +34,11 @@ const esConfig = {
   external,
   output: {
     file: 'dist/index.esm.js',
-      format: 'esm',
-      exports: 'named',
+    format: 'esm',
+    exports: 'named',
   },
   plugins: [
-    generateDeclarations(),
+    commonjs(),
     babel({
       ...babelConfig,
       presets: [
@@ -50,7 +50,7 @@ const esConfig = {
         ],
       ],
     }),
-    commonjs(),
+    generateDeclarations(),
   ]
 }
 
