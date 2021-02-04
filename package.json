@@ -1,6 +1,6 @@
 {
   "name": "@apenhet/vue-plugin-use-store",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Vue Plugin to use strong-typed stores.",
   "main": "dist/index.ssr.js",
   "browser": "dist/index.esm.js",
