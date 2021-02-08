@@ -11,9 +11,14 @@ yarn add @apenhet/vue-plugin-use-store
 This package works both with Vue 2 + Composition API and Vue 3 + (Vuex).
 To start using your store modules, simply register your store as follows:
 
+### Vue 3
 ```ts
+// store/index.ts
+
 import { registerStore } from '@apenhet/vue-plugin-use-store'
 import { createStore } from 'vuex'
+
+export const modules = {}
 
 const store = createStore({
   modules,
@@ -21,11 +26,35 @@ const store = createStore({
 
 registerStore(store)
 
-// Export your modules
+export default store
+```
+
+
+### Vue 2
+```ts
+// store/index.ts
+
+import { registerStore } from '@apenhet/vue-plugin-use-store'
+import Vuex from 'vuex'
+
 export const modules = {}
 
-// Default export your store
+const store = new Vuex.Store({
+  modules,
+})
+
+registerStore(store)
+
 export default store
+```
+
+```ts
+// main.ts
+
+import Vue from 'vue'
+import VueCompositionApi from '@vue/composition-api'
+
+Vue.use(VueCompositionApi)
 ```
 
 ## TypeScript
