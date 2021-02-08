@@ -18,9 +18,14 @@ To start using your store modules, simply register your store as follows:
 import { registerStore } from '@apenhet/vue-plugin-use-store'
 import { createStore } from 'vuex'
 
+export type RootState = typeof state
+
 export const modules = {}
 
+const state = {}
+
 const store = createStore({
+  state,
   modules,
 })
 
@@ -37,9 +42,14 @@ export default store
 import { registerStore } from '@apenhet/vue-plugin-use-store'
 import Vuex from 'vuex'
 
+export type RootState = typeof state
+
 export const modules = {}
 
+const state = {}
+
 const store = new Vuex.Store({
+  state,
   modules,
 })
 
@@ -76,6 +86,11 @@ You can now use your store modules as follows:
 
 ```typescript
 // store/some-module-name.ts
+import { ActionContext } from 'vuex'
+import { RootState }  from '.'
+
+type State = ReturnType<typeof state>
+type ActionCtx = ActionContext<State, RootState>
 
 const state = () => ({ someStateProperty: false })
 
@@ -86,13 +101,10 @@ const mutations = {
 }
 
 const actions = {
-  async someAction(
-    { commit }: ActionContext<State, RootState>,
-    payload: number
-  ) {
+  async someAction({ commit }: ActionCtx, payload: number) {
     commit('SOMETHING', payload)
   },
-  async someActionWitoutParams({ commit }: ActionContext<State, RootState>) {
+  async someActionWitoutParams({ commit }: ActionCtx) {
     return 'DONE'
   },
 }
